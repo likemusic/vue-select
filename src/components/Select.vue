@@ -62,7 +62,7 @@
           :disabled="disabled"
           type="button"
           class="vs__clear"
-          title="Clear Selected"
+          :title="textValues.clearSelection"
           aria-label="Clear Selected"
           @click="clearSelection"
         >
@@ -119,7 +119,7 @@
         </li>
         <li v-if="filteredOptions.length === 0" class="vs__no-options">
           <slot name="no-options" v-bind="scope.noOptions">
-            Sorry, no matching options.
+            {{ textValues.noResults }}
           </slot>
         </li>
         <slot name="list-footer" v-bind="scope.listFooter" />
@@ -143,6 +143,7 @@ import childComponents from './childComponents.js'
 import appendToBody from '../directives/appendToBody.js'
 import sortAndStringify from '../utility/sortAndStringify.js'
 import uniqueId from '../utility/uniqueId.js'
+import text from '../mixins/text'
 
 /**
  * @name VueSelect
@@ -152,7 +153,7 @@ export default {
 
   directives: { appendToBody },
 
-  mixins: [pointerScroll, typeAheadPointer, ajax],
+  mixins: [pointerScroll, typeAheadPointer, ajax, text],
 
   props: {
     /**
